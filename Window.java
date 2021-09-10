@@ -86,9 +86,9 @@ public class Window extends JFrame implements ActionListener {
             }
 
             if (operators.contains(e.getActionCommand())) {
-                print(e.getActionCommand());
-            } else
-                print(BigDecimal.valueOf(calculator.secondOperand).toPlainString());
+                print(e.getActionCommand(), e);
+            } else if (!isError)
+                print(BigDecimal.valueOf(calculator.secondOperand).toPlainString(), e);
         } else if (e.getActionCommand().equals("C")) calculator.cancel();
     }
 
@@ -101,8 +101,8 @@ public class Window extends JFrame implements ActionListener {
         if (d > MAX_VALUE || d < MIN_VALUE) error();
     }
 
-    void print(String s) {
-        if (s.length() != 1) {
+    void print(String s, ActionEvent e) {
+        if (s.length() != 1 && !e.getActionCommand().equals("=")) {
             if (calculator.fractionalPart < 1) s = s.substring(0, s.length() - 2);
             if (calculator.fractionalPart == 1) s = s.substring(0, s.length() - 1);
         }

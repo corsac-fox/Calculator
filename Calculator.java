@@ -13,10 +13,12 @@ public class Calculator {
     }
 
     void backspace() {
+        if (startNew) cancel();
+
         if (fractionalPart > 1) {
             fractionalPart--;
             round();
-        } else secondOperand = secondOperand / 10;
+        } else secondOperand = (int)secondOperand / 10;
         if (fractionalPart == 1) fractionalPart = 0;
     }
 
@@ -63,6 +65,7 @@ public class Calculator {
         operator = '\u0000';
         owner.isError = false;
         owner.display.setText("0");
+        fractionalPart = 0;
     }
 
     void numberInput(String symbol) {
@@ -75,6 +78,12 @@ public class Calculator {
             }
         } else if (fractionalPart > 0) {
             secondOperand = secondOperand + (Integer.parseInt(symbol) / (Math.pow(10, fractionalPart)));
+
+            if (Math.abs(Math.rint(secondOperand * Math.pow(10, fractionalPart)) - secondOperand * Math.pow(10,
+                    fractionalPart)) > 4.9E-324)
+                secondOperand = Math.rint(secondOperand * Math.pow(10, fractionalPart)) / Math.pow(10,
+                        fractionalPart);
+
             fractionalPart++;
         } else
             secondOperand = secondOperand * 10 + Integer.parseInt(symbol);
