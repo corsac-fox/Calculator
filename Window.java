@@ -74,15 +74,24 @@ public class Window extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (!isError) {
             switch (e.getActionCommand()) {
-                case "C" -> calculator.cancel();
+                case "C": calculator.cancel();
+                    break;
                 //стирание знаков
-                case ("" + (char) 0x21D0) -> calculator.backspace();
+                case ("" + (char) 0x21D0): calculator.backspace();
+                    break;
                 //извлечение корня
-                case ("" + (char) 0x221A) -> calculator.sqrt();
-                case "+", "-", "×", "÷" -> calculator.setOperator(e.getActionCommand());
-                case "=" -> calculator.calculate();
-                case "+/-" -> calculator.signChange();
-                default -> calculator.numberInput(e.getActionCommand());
+                case ("" + (char) 0x221A): calculator.sqrt();
+                    break;
+                case "+":
+                case "-":
+                case "×":
+                case "÷": calculator.setOperator(e.getActionCommand());
+                    break;
+                case "=": calculator.calculate();
+                    break;
+                case "+/-": calculator.signChange();
+                    break;
+                default: calculator.numberInput(e.getActionCommand());
             }
 
             if (operators.contains(e.getActionCommand())) {
