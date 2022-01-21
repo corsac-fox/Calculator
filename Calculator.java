@@ -20,6 +20,7 @@ public class Calculator {
             round();
         } else secondOperand = (int)secondOperand / 10;
         if (fractionalPart == 1) fractionalPart = 0;
+        memory = secondOperand;
     }
 
     void calculate() {
